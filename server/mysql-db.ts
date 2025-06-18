@@ -2,10 +2,10 @@ import mysql from 'mysql2/promise';
 
 // MySQL connection configuration
 const dbConfig = {
-  host: 'localhost',
-  user: 'root', 
-  password: '',
-  database: 'nilaya_db',
+  host: process.env.MYSQL_HOST || 'localhost',
+  user: process.env.MYSQL_USER || 'root', 
+  password: process.env.MYSQL_PASSWORD || '',
+  database: process.env.MYSQL_DATABASE || 'nilaya_db',
   port: 3306
 };
 
@@ -105,6 +105,48 @@ export class MySQLStorage {
         success: false,
         error: error.message,
         rowCount: 0
+      };
+    }
+  }
+
+  async getTables() {
+    try {
+      const [rows] = await pool.execute(`
+        SELECT table_name, table_type 
+        FROM information_schema.tables 
+        WHERE table_schema = ?
+        ORDER BY table_name
+      `, [dbConfig.database]);
+      
+      return {
+        success: true,
+        tables: rows as any[]
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: error.message
+      };
+    }
+  }
+
+  async getTableStructure(tableName: string) {
+    try {
+      const [rows] = await pool.execute(`
+        SELECT column_name, data_type, is_nullable, column_default, character_maximum_length
+        FROM information_schema.columns 
+        WHERE table_schema = ? AND table_name = ?
+        ORDER BY ordinal_position
+      `, [dbConfig.database, tableName]);
+      
+      return {
+        success: true,
+        structure: rows as any[]
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: error.message
       };
     }
   }

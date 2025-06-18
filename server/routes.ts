@@ -1,9 +1,9 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { SQLiteStorage, initializeDatabase } from "./sqlite-db";
+import { MySQLStorage, initializeDatabase } from "./mysql-db";
 import { z } from "zod";
 
-const storage = new SQLiteStorage();
+const storage = new MySQLStorage();
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Initialize MySQL database
@@ -104,7 +104,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/database/tables", adminAuth, async (req, res) => {
     try {
-      const result = await (storage as any).getTables();
+      const result = await storage.getTables();
       res.json(result);
     } catch (error: any) {
       res.status(500).json({
@@ -117,7 +117,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/database/structure/:table", adminAuth, async (req, res) => {
     try {
       const { table } = req.params;
-      const result = await (storage as any).getTableStructure(table);
+      const result = await storage.getTableStructure(table);
       res.json(result);
     } catch (error: any) {
       res.status(500).json({
