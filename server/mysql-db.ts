@@ -1,13 +1,26 @@
 import mysql from 'mysql2/promise';
 
+// Parse cPanel database name format (user_database@host)
+const databaseString = process.env.MYSQL_DATABASE || 'nilaya_db';
+const [actualDatabase, hostFromDb] = databaseString.includes('@') ? 
+  databaseString.split('@') : [databaseString, null];
+
 // MySQL connection configuration
 const dbConfig = {
-  host: process.env.MYSQL_HOST || 'localhost',
+  host: process.env.MYSQL_HOST || hostFromDb || 'localhost',
   user: process.env.MYSQL_USER || 'root', 
   password: process.env.MYSQL_PASSWORD || '',
-  database: process.env.MYSQL_DATABASE || 'nilaya_db',
-  port: 3306
+  database: actualDatabase,
+  port: 3306,
+  connectTimeout: 30000
 };
+
+console.log('MySQL connection config:', {
+  host: dbConfig.host,
+  user: dbConfig.user,
+  database: dbConfig.database,
+  port: dbConfig.port
+});
 
 // Create connection pool
 export const pool = mysql.createPool(dbConfig);
@@ -15,18 +28,12 @@ export const pool = mysql.createPool(dbConfig);
 // Initialize database and tables
 export async function initializeDatabase() {
   try {
-    // Create database if it doesn't exist
-    const connection = await mysql.createConnection({
-      host: dbConfig.host,
-      user: dbConfig.user,
-      password: dbConfig.password,
-      port: dbConfig.port
-    });
+    // Test connection to existing database
+    const testConnection = await pool.getConnection();
+    console.log(`Successfully connected to MySQL database: ${dbConfig.database} at ${dbConfig.host}`);
+    testConnection.release();
 
-    await connection.execute(`CREATE DATABASE IF NOT EXISTS ${dbConfig.database}`);
-    await connection.end();
-
-    // Create tables
+    // Create tables if they don't exist
     await pool.execute(`
       CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -50,7 +57,10 @@ export async function initializeDatabase() {
 
     console.log('MySQL database and tables initialized successfully');
   } catch (error) {
-    console.error('Error initializing MySQL database:', error);
+    console.error('Error connecting to MySQL database:', error);
+    console.log('Note: Make sure your cPanel MySQL database is accessible from external connections');
+    console.log('Falling back to memory storage for now...');
+    // Don't throw error, let the app continue with memory storage
   }
 }
 

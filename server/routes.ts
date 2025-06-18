@@ -1,13 +1,29 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { MySQLStorage, initializeDatabase } from "./mysql-db";
+import { SQLiteStorage, initializeDatabase as initSQLite } from "./sqlite-db";
 import { z } from "zod";
 
-const storage = new MySQLStorage();
+// Try MySQL first, fallback to SQLite if connection fails
+let storage: MySQLStorage | SQLiteStorage;
+let databaseType = 'unknown';
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Initialize MySQL database
-  await initializeDatabase();
+  // Try to initialize MySQL connection, fallback to SQLite
+  try {
+    await initializeDatabase();
+    // Test if MySQL is actually working
+    const mysqlStorage = new MySQLStorage();
+    await mysqlStorage.getLeads(); // Test query
+    storage = mysqlStorage;
+    databaseType = 'MySQL (cPanel)';
+    console.log('Successfully connected to MySQL database');
+  } catch (error) {
+    console.log('MySQL connection failed, using SQLite as fallback');
+    await initSQLite();
+    storage = new SQLiteStorage();
+    databaseType = 'SQLite (Local)';
+  }
 
   // Create lead endpoint
   app.post("/api/leads", async (req, res) => {
