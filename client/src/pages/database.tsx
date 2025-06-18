@@ -65,8 +65,8 @@ function DatabaseLogin({ onLogin }: { onLogin: () => void }) {
           <div className="w-12 h-12 bg-ocean/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <Database className="h-6 w-6 text-ocean" />
           </div>
-          <CardTitle className="text-2xl font-bold text-ocean">phpMyAdmin</CardTitle>
-          <p className="text-gray-600">Enter password to access database management</p>
+          <CardTitle className="text-2xl font-bold text-ocean">Database Manager</CardTitle>
+          <p className="text-gray-600">Enter password to access SQL database management</p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -140,8 +140,8 @@ export default function DatabasePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div>
-              <h1 className="font-playfair text-2xl font-bold text-ocean">phpMyAdmin</h1>
-              <p className="text-sm text-gray-600">PostgreSQL Database Administration</p>
+              <h1 className="font-playfair text-2xl font-bold text-ocean">SQL Database Manager</h1>
+              <p className="text-sm text-gray-600">SQLite Database Administration</p>
             </div>
             <div className="flex items-center space-x-4">
               <Button 
@@ -180,7 +180,7 @@ export default function DatabasePage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Database className="h-5 w-5" />
-                Server: neon.tech
+                Server: localhost
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
@@ -210,11 +210,11 @@ export default function DatabasePage() {
                 <div className="space-y-2 text-xs text-gray-600">
                   <div className="flex justify-between">
                     <span>Engine:</span>
-                    <span>PostgreSQL</span>
+                    <span>SQLite</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Port:</span>
-                    <span>5432</span>
+                    <span>File:</span>
+                    <span>database.db</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Charset:</span>

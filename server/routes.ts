@@ -104,17 +104,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/database/tables", adminAuth, async (req, res) => {
     try {
-      const result = await storage.executeQuery(`
-        SELECT table_name, table_type 
-        FROM information_schema.tables 
-        WHERE table_schema = 'nilaya_db'
-        ORDER BY table_name
-      `);
-      
-      res.json({
-        success: true,
-        tables: result.rows || []
-      });
+      const result = await (storage as any).getTables();
+      res.json(result);
     } catch (error: any) {
       res.status(500).json({
         success: false,
@@ -126,18 +117,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/database/structure/:table", adminAuth, async (req, res) => {
     try {
       const { table } = req.params;
-      
-      const result = await storage.executeQuery(`
-        SELECT column_name, data_type, is_nullable, column_default, character_maximum_length
-        FROM information_schema.columns 
-        WHERE table_schema = 'nilaya_db' AND table_name = '${table}'
-        ORDER BY ordinal_position
-      `);
-      
-      res.json({
-        success: true,
-        structure: result.rows || []
-      });
+      const result = await (storage as any).getTableStructure(table);
+      res.json(result);
     } catch (error: any) {
       res.status(500).json({
         success: false,
