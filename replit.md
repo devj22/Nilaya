@@ -18,8 +18,8 @@ This is a modern, responsive real estate landing page for "Nilaya" - a premium N
 - **Runtime**: Node.js with Express.js
 - **Language**: TypeScript with ESM modules
 - **Database**: PostgreSQL with Drizzle ORM
-- **Session Storage**: In-memory storage (development) with planned PostgreSQL integration
-- **API**: RESTful endpoints for lead management
+- **Authentication**: Simple token-based admin authentication
+- **API**: RESTful endpoints for lead management and admin access
 
 ## Key Components
 
@@ -31,10 +31,12 @@ This is a modern, responsive real estate landing page for "Nilaya" - a premium N
 
 ### API Endpoints
 - `POST /api/leads` - Create new lead with validation
-- `GET /api/leads` - Retrieve all leads (admin functionality)
+- `GET /api/leads` - Retrieve all leads (admin functionality, requires authentication)
+- `POST /api/admin/login` - Admin authentication endpoint
 
 ### Frontend Pages
 - **Home Page**: Complete landing page with all sections
+- **Admin Panel**: Protected dashboard for viewing and managing lead inquiries
 - **404 Page**: Not found error page
 
 ### UI Components
@@ -83,7 +85,8 @@ This is a modern, responsive real estate landing page for "Nilaya" - a premium N
 
 ## Changelog
 
-- June 18, 2025. Initial setup
+- June 18, 2025. Initial setup with premium real estate landing page
+- June 18, 2025. Added PostgreSQL database integration and admin panel with authentication
 
 ## User Preferences
 

@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
 import { 
   Table, 
   TableBody, 
@@ -21,13 +23,96 @@ import {
   Phone, 
   MessageSquare,
   FileText,
-  TrendingUp
+  TrendingUp,
+  Lock,
+  LogOut
 } from "lucide-react";
 import { format } from "date-fns";
+import { apiRequest } from "@/lib/queryClient";
 import type { Lead } from "@shared/schema";
+
+function AdminLogin({ onLogin }: { onLogin: () => void }) {
+  const [password, setPassword] = useState("");
+  const { toast } = useToast();
+
+  const loginMutation = useMutation({
+    mutationFn: async (password: string) => {
+      const response = await apiRequest("POST", "/api/admin/login", { password });
+      return response.json();
+    },
+    onSuccess: (data) => {
+      localStorage.setItem('adminToken', data.token);
+      toast({
+        title: "Login successful",
+        description: "Welcome to the admin panel",
+      });
+      onLogin();
+    },
+    onError: () => {
+      toast({
+        title: "Login failed",
+        description: "Invalid password. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    loginMutation.mutate(password);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <Card className="w-full max-w-md">
+        <CardHeader className="text-center">
+          <div className="w-12 h-12 bg-ocean/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Lock className="h-6 w-6 text-ocean" />
+          </div>
+          <CardTitle className="text-2xl font-bold text-ocean">Admin Access</CardTitle>
+          <p className="text-gray-600">Enter password to access the admin panel</p>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter admin password"
+                required
+              />
+            </div>
+            <Button 
+              type="submit" 
+              className="w-full bg-gradient-coastal text-white"
+              disabled={loginMutation.isPending}
+            >
+              {loginMutation.isPending ? "Logging in..." : "Login"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
 
 export default function AdminPage() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem('adminToken') === 'admin123';
+  });
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    setIsLoggedIn(false);
+  };
+
+  if (!isLoggedIn) {
+    return <AdminLogin onLogin={() => setIsLoggedIn(true)} />;
+  }
 
   const { data: leadsData, isLoading, error } = useQuery({
     queryKey: ["/api/leads"],
@@ -87,13 +172,23 @@ export default function AdminPage() {
               <h1 className="font-playfair text-2xl font-bold text-ocean">Nilaya Admin</h1>
               <p className="text-sm text-gray-600">Lead Management Dashboard</p>
             </div>
-            <Button 
-              variant="outline"
-              onClick={() => window.location.href = "/"}
-              className="border-ocean text-ocean hover:bg-ocean hover:text-white"
-            >
-              View Website
-            </Button>
+            <div className="flex items-center space-x-4">
+              <Button 
+                variant="outline"
+                onClick={() => window.location.href = "/"}
+                className="border-ocean text-ocean hover:bg-ocean hover:text-white"
+              >
+                View Website
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={handleLogout}
+                className="border-red-300 text-red-600 hover:bg-red-50"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            </div>
           </div>
         </div>
       </div>
