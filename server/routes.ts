@@ -27,8 +27,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Simple admin authentication middleware
+  const adminAuth = (req: any, res: any, next: any) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || authHeader !== 'Bearer admin123') {
+      return res.status(401).json({ 
+        success: false, 
+        message: "Unauthorized" 
+      });
+    }
+    next();
+  };
+
   // Get leads endpoint (for admin purposes)
-  app.get("/api/leads", async (req, res) => {
+  app.get("/api/leads", adminAuth, async (req, res) => {
     try {
       const leads = await storage.getLeads();
       res.json({ success: true, leads });
@@ -36,6 +48,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         success: false, 
         message: "Failed to fetch leads" 
+      });
+    }
+  });
+
+  // Admin login endpoint
+  app.post("/api/admin/login", async (req, res) => {
+    const { password } = req.body;
+    if (password === "admin123") {
+      res.json({ 
+        success: true, 
+        token: "admin123",
+        message: "Login successful"
+      });
+    } else {
+      res.status(401).json({ 
+        success: false, 
+        message: "Invalid password" 
       });
     }
   });

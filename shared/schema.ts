@@ -15,7 +15,7 @@ export const leads = pgTable("leads", {
   email: text("email").notNull(),
   plotSize: text("plot_size"),
   message: text("message"),
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
