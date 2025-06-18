@@ -134,9 +134,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const structureResult = await db.execute(`
         SELECT column_name, data_type, is_nullable, column_default, character_maximum_length
         FROM information_schema.columns 
-        WHERE table_schema = 'public' AND table_name = $1
+        WHERE table_schema = 'public' AND table_name = '${table}'
         ORDER BY ordinal_position
-      `, [table]);
+      `);
       
       res.json({
         success: true,

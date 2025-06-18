@@ -20,8 +20,6 @@ import {
   Database, 
   Play, 
   Download, 
-  Upload,
-  Trash2,
   RefreshCw,
   Lock,
   LogOut,
@@ -67,7 +65,7 @@ function DatabaseLogin({ onLogin }: { onLogin: () => void }) {
           <div className="w-12 h-12 bg-ocean/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <Database className="h-6 w-6 text-ocean" />
           </div>
-          <CardTitle className="text-2xl font-bold text-ocean">Database Access</CardTitle>
+          <CardTitle className="text-2xl font-bold text-ocean">phpMyAdmin</CardTitle>
           <p className="text-gray-600">Enter password to access database management</p>
         </CardHeader>
         <CardContent>
@@ -131,11 +129,6 @@ export default function DatabasePage() {
     },
   });
 
-  const { data: tableInfo } = useQuery({
-    queryKey: ["/api/database/tables"],
-    enabled: isLoggedIn,
-  });
-
   if (!isLoggedIn) {
     return <DatabaseLogin onLogin={() => setIsLoggedIn(true)} />;
   }
@@ -147,7 +140,7 @@ export default function DatabasePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div>
-              <h1 className="font-playfair text-2xl font-bold text-ocean">Database Manager</h1>
+              <h1 className="font-playfair text-2xl font-bold text-ocean">phpMyAdmin</h1>
               <p className="text-sm text-gray-600">PostgreSQL Database Administration</p>
             </div>
             <div className="flex items-center space-x-4">
@@ -179,202 +172,228 @@ export default function DatabasePage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* Database Connection Info */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Database className="h-5 w-5" />
-              Database Connection
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-              <div>
-                <Label className="font-medium text-gray-600">Host</Label>
-                <p className="font-mono bg-gray-100 p-2 rounded mt-1">ep-snowy-cell-a6f2y7jf.us-west-2.aws.neon.tech</p>
-              </div>
-              <div>
-                <Label className="font-medium text-gray-600">Port</Label>
-                <p className="font-mono bg-gray-100 p-2 rounded mt-1">5432</p>
-              </div>
-              <div>
-                <Label className="font-medium text-gray-600">Database</Label>
-                <p className="font-mono bg-gray-100 p-2 rounded mt-1">neondb</p>
-              </div>
-              <div>
-                <Label className="font-medium text-gray-600">Username</Label>
-                <p className="font-mono bg-gray-100 p-2 rounded mt-1">neondb_owner</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Button 
-            variant="outline" 
-            className="h-20 flex flex-col gap-2"
-            onClick={() => setSqlQuery("SELECT * FROM leads ORDER BY created_at DESC LIMIT 10;")}
-          >
-            <Database className="h-6 w-6" />
-            View Recent Leads
-          </Button>
-          <Button 
-            variant="outline" 
-            className="h-20 flex flex-col gap-2"
-            onClick={() => setSqlQuery("SELECT COUNT(*) as total_leads FROM leads;")}
-          >
-            <RefreshCw className="h-6 w-6" />
-            Count All Leads
-          </Button>
-          <Button 
-            variant="outline" 
-            className="h-20 flex flex-col gap-2"
-            onClick={() => setSqlQuery("SELECT name, email, phone, created_at FROM leads WHERE created_at >= CURRENT_DATE;")}
-          >
-            <Download className="h-6 w-6" />
-            Today's Leads
-          </Button>
-        </div>
-
-        {/* SQL Query Interface */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Play className="h-5 w-5" />
-              SQL Query Interface
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="sqlQuery">SQL Query</Label>
-              <Textarea
-                id="sqlQuery"
-                value={sqlQuery}
-                onChange={(e) => setSqlQuery(e.target.value)}
-                placeholder="Enter your SQL query here..."
-                className="font-mono text-sm min-h-24"
-              />
-            </div>
-            <Button 
-              onClick={() => executeSqlMutation.mutate(sqlQuery)}
-              disabled={executeSqlMutation.isPending}
-              className="bg-gradient-coastal text-white"
-            >
-              <Play className="h-4 w-4 mr-2" />
-              {executeSqlMutation.isPending ? "Executing..." : "Execute Query"}
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Query Results */}
-        {queryResult && (
-          <Card>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* phpMyAdmin Style Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Left Sidebar - Tables List */}
+          <Card className="lg:col-span-1">
             <CardHeader>
-              <CardTitle>Query Results</CardTitle>
-              {queryResult.success && (
-                <Badge variant="outline" className="w-fit">
-                  {queryResult.rowCount} rows returned
-                </Badge>
-              )}
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <Database className="h-5 w-5" />
+                Server: neon.tech
+              </CardTitle>
             </CardHeader>
-            <CardContent>
-              {queryResult.success ? (
-                queryResult.rows && queryResult.rows.length > 0 ? (
-                  <div className="overflow-x-auto">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          {Object.keys(queryResult.rows[0]).map((key) => (
-                            <TableHead key={key}>{key}</TableHead>
-                          ))}
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {queryResult.rows.map((row: any, index: number) => (
-                          <TableRow key={index}>
-                            {Object.values(row).map((value: any, cellIndex: number) => (
-                              <TableCell key={cellIndex} className="font-mono text-sm">
-                                {value === null ? (
-                                  <span className="text-gray-400 italic">NULL</span>
-                                ) : (
-                                  String(value)
-                                )}
-                              </TableCell>
-                            ))}
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
+            <CardContent className="p-0">
+              <div className="border-b p-4 bg-blue-50">
+                <p className="text-sm font-semibold text-blue-900">Database: nilaya_db</p>
+                <p className="text-xs text-blue-700">Tables (2)</p>
+              </div>
+              <div className="space-y-1 p-2">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="w-full justify-start text-left font-mono text-sm hover:bg-blue-50"
+                  onClick={() => setSqlQuery("SELECT * FROM leads ORDER BY created_at DESC LIMIT 20;")}
+                >
+                  📋 leads
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="w-full justify-start text-left font-mono text-sm hover:bg-blue-50"
+                  onClick={() => setSqlQuery("SELECT * FROM users LIMIT 10;")}
+                >
+                  👤 users
+                </Button>
+              </div>
+              <div className="border-t p-4 bg-gray-50">
+                <div className="space-y-2 text-xs text-gray-600">
+                  <div className="flex justify-between">
+                    <span>Engine:</span>
+                    <span>PostgreSQL</span>
                   </div>
-                ) : (
-                  <p className="text-gray-600">Query executed successfully but returned no rows.</p>
-                )
-              ) : (
-                <div className="bg-red-50 border border-red-200 rounded p-4">
-                  <p className="text-red-800 font-medium">Error executing query:</p>
-                  <pre className="text-red-600 text-sm mt-2 whitespace-pre-wrap">
-                    {queryResult.error}
-                  </pre>
+                  <div className="flex justify-between">
+                    <span>Port:</span>
+                    <span>5432</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Charset:</span>
+                    <span>UTF-8</span>
+                  </div>
                 </div>
-              )}
+              </div>
             </CardContent>
           </Card>
-        )}
 
-        {/* Common Queries */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Common Database Queries</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <h4 className="font-medium">View Data</h4>
-                <div className="space-y-1 text-sm">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="justify-start h-auto p-2 w-full text-left"
-                    onClick={() => setSqlQuery("SELECT * FROM leads ORDER BY created_at DESC;")}
-                  >
-                    View all leads
-                  </Button>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="justify-start h-auto p-2 w-full text-left"
-                    onClick={() => setSqlQuery("SELECT name, email, phone FROM leads WHERE plot_size IS NOT NULL;")}
-                  >
-                    Leads with plot preferences
-                  </Button>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <h4 className="font-medium">Statistics</h4>
-                <div className="space-y-1 text-sm">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="justify-start h-auto p-2 w-full text-left"
-                    onClick={() => setSqlQuery("SELECT DATE(created_at) as date, COUNT(*) as leads_count FROM leads GROUP BY DATE(created_at) ORDER BY date DESC;")}
-                  >
-                    Daily lead counts
-                  </Button>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="justify-start h-auto p-2 w-full text-left"
-                    onClick={() => setSqlQuery("SELECT plot_size, COUNT(*) as count FROM leads WHERE plot_size IS NOT NULL GROUP BY plot_size;")}
-                  >
-                    Plot size preferences
-                  </Button>
-                </div>
-              </div>
+          {/* Main Content Area */}
+          <div className="lg:col-span-3 space-y-6">
+            {/* Quick Actions */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Button 
+                variant="outline" 
+                className="h-20 flex flex-col gap-2"
+                onClick={() => setSqlQuery("SELECT * FROM leads ORDER BY created_at DESC LIMIT 10;")}
+              >
+                <Database className="h-6 w-6" />
+                View Recent Leads
+              </Button>
+              <Button 
+                variant="outline" 
+                className="h-20 flex flex-col gap-2"
+                onClick={() => setSqlQuery("SELECT COUNT(*) as total_leads FROM leads;")}
+              >
+                <RefreshCw className="h-6 w-6" />
+                Count All Leads
+              </Button>
+              <Button 
+                variant="outline" 
+                className="h-20 flex flex-col gap-2"
+                onClick={() => setSqlQuery("SELECT name, email, phone, created_at FROM leads WHERE created_at >= CURRENT_DATE;")}
+              >
+                <Download className="h-6 w-6" />
+                Today's Leads
+              </Button>
             </div>
-          </CardContent>
-        </Card>
+
+            {/* SQL Query Interface */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Play className="h-5 w-5" />
+                  SQL Query Console
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label htmlFor="sqlQuery">SQL Query</Label>
+                  <Textarea
+                    id="sqlQuery"
+                    value={sqlQuery}
+                    onChange={(e) => setSqlQuery(e.target.value)}
+                    placeholder="Enter your SQL query here..."
+                    className="font-mono text-sm min-h-24"
+                  />
+                </div>
+                <Button 
+                  onClick={() => executeSqlMutation.mutate(sqlQuery)}
+                  disabled={executeSqlMutation.isPending}
+                  className="bg-gradient-coastal text-white"
+                >
+                  <Play className="h-4 w-4 mr-2" />
+                  {executeSqlMutation.isPending ? "Executing..." : "Go"}
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Query Results */}
+            {queryResult && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Query Results</CardTitle>
+                  {queryResult.success && (
+                    <Badge variant="outline" className="w-fit">
+                      {queryResult.rowCount} rows returned
+                    </Badge>
+                  )}
+                </CardHeader>
+                <CardContent>
+                  {queryResult.success ? (
+                    queryResult.rows && queryResult.rows.length > 0 ? (
+                      <div className="overflow-x-auto">
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              {Object.keys(queryResult.rows[0]).map((key) => (
+                                <TableHead key={key} className="bg-gray-50 font-semibold">{key}</TableHead>
+                              ))}
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {queryResult.rows.map((row: any, index: number) => (
+                              <TableRow key={index} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                                {Object.values(row).map((value: any, cellIndex: number) => (
+                                  <TableCell key={cellIndex} className="font-mono text-sm">
+                                    {value === null ? (
+                                      <span className="text-gray-400 italic">NULL</span>
+                                    ) : (
+                                      String(value)
+                                    )}
+                                  </TableCell>
+                                ))}
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </div>
+                    ) : (
+                      <p className="text-gray-600">Query executed successfully but returned no rows.</p>
+                    )
+                  ) : (
+                    <div className="bg-red-50 border border-red-200 rounded p-4">
+                      <p className="text-red-800 font-medium">Error executing query:</p>
+                      <pre className="text-red-600 text-sm mt-2 whitespace-pre-wrap">
+                        {queryResult.error}
+                      </pre>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Common Queries - phpMyAdmin Style */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Quick SQL Commands</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <h4 className="font-medium">Browse Data</h4>
+                    <div className="space-y-1 text-sm">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="justify-start h-auto p-2 w-full text-left"
+                        onClick={() => setSqlQuery("SELECT * FROM leads ORDER BY created_at DESC;")}
+                      >
+                        Browse leads table
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="justify-start h-auto p-2 w-full text-left"
+                        onClick={() => setSqlQuery("SELECT * FROM users;")}
+                      >
+                        Browse users table
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-medium">Statistics</h4>
+                    <div className="space-y-1 text-sm">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="justify-start h-auto p-2 w-full text-left"
+                        onClick={() => setSqlQuery("SELECT DATE(created_at) as date, COUNT(*) as leads_count FROM leads GROUP BY DATE(created_at) ORDER BY date DESC;")}
+                      >
+                        Daily lead counts
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="justify-start h-auto p-2 w-full text-left"
+                        onClick={() => setSqlQuery("SELECT plot_size, COUNT(*) as count FROM leads WHERE plot_size IS NOT NULL GROUP BY plot_size;")}
+                      >
+                        Plot size preferences
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </div>
     </div>
   );
