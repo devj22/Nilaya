@@ -87,6 +87,7 @@ This is a modern, responsive real estate landing page for "Nilaya" - a premium N
 
 - June 18, 2025. Initial setup with premium real estate landing page
 - June 18, 2025. Added PostgreSQL database integration and admin panel with authentication
+- June 18, 2025. Integrated cPanel MySQL database support with SQLite fallback for reliable data storage
 
 ## User Preferences
 

@@ -110,13 +110,10 @@ export default function AdminPage() {
     setIsLoggedIn(false);
   };
 
-  if (!isLoggedIn) {
-    return <AdminLogin onLogin={() => setIsLoggedIn(true)} />;
-  }
-
   const { data: leadsData, isLoading, error } = useQuery({
     queryKey: ["/api/leads"],
     refetchInterval: 30000, // Refresh every 30 seconds
+    enabled: isLoggedIn, // Only fetch if logged in
   });
 
   const leads: Lead[] = (leadsData as any)?.leads || [];
@@ -144,6 +141,10 @@ export default function AdminPage() {
     weekAgo.setDate(weekAgo.getDate() - 7);
     return new Date(lead.createdAt) >= weekAgo;
   }).length;
+
+  if (!isLoggedIn) {
+    return <AdminLogin onLogin={() => setIsLoggedIn(true)} />;
+  }
 
   if (error) {
     return (

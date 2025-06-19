@@ -35,6 +35,7 @@ import {
   X,
   TriangleAlert
 } from "lucide-react";
+import GallerySection from "@/components/GallerySection";
 
 export default function HomePage() {
   const [showAlert, setShowAlert] = useState(true);
@@ -136,7 +137,9 @@ export default function HomePage() {
               <button onClick={() => scrollToSection('features')} className="text-gray-700 hover:text-ocean transition-colors">Features</button>
               <button onClick={() => scrollToSection('investment')} className="text-gray-700 hover:text-ocean transition-colors">Investment</button>
               <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-ocean transition-colors">Contact</button>
-              <Button className="bg-gradient-coastal text-white px-6 py-2 rounded-full hover:shadow-lg transition-all">
+              <Button className="bg-gradient-coastal text-white px-6 py-2 rounded-full hover:shadow-lg transition-all"
+                onClick={() => scrollToSection('contact')}
+              >
                 Book Site Visit
               </Button>
             </div>
@@ -229,6 +232,26 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Intro Video Section */}
+      <section id="intro-video" className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Welcome to Nilaya – Watch Our Intro
+          </h2>
+          <div className="w-24 h-1 bg-gradient-coastal mx-auto mb-8"></div>
+          <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg shadow-lg">
+            <iframe
+              className="absolute top-0 left-0 w-full h-full"
+              src="https://www.youtube.com/embed/waP_CA2uIPU?si=lpR9cy88QK3w-2lH"
+              title="Nilaya Intro Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
           </div>
         </div>
       </section>
@@ -423,6 +446,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Gallery Section (Admin Upload) */}
+      <GallerySection />
 
       {/* Project Snapshot */}
       <section className="py-20 bg-gray-50">
@@ -646,7 +672,7 @@ export default function HomePage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">Email</h3>
-                  <p className="text-gray-300">info@nilayaplots.com</p>
+                  <p className="text-gray-300">nilayaalibaug@gmail.com</p>
                 </div>
               </div>
               
@@ -655,7 +681,7 @@ export default function HomePage() {
                 <h3 className="text-lg font-semibold mb-4">Location</h3>
                 <div className="bg-gray-800 p-4 rounded-lg">
                   <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.5977!2d72.8777!3d18.9647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDU3JzUzLjAiTiA3MsKwNTInNDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890" 
+                    src="https://www.google.com/maps?q=18.6143,72.9030&z=15&output=embed" 
                     width="100%" 
                     height="200" 
                     style={{ border: 0, borderRadius: '8px' }} 
@@ -785,7 +811,7 @@ export default function HomePage() {
               <div className="space-y-2 text-gray-400">
                 <p><MapPin className="inline h-4 w-4 mr-2" />Nagaon, Alibaug, Maharashtra</p>
                 <p><Phone className="inline h-4 w-4 mr-2" />+91 98765 43210</p>
-                <p><Mail className="inline h-4 w-4 mr-2" />info@nilayaplots.com</p>
+                <p><Mail className="inline h-4 w-4 mr-2" />nilayaalibaug@gmail.com</p>
               </div>
             </div>
           </div>
