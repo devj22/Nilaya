@@ -174,9 +174,12 @@ export default function HomePage() {
             <Button 
               variant="outline"
               className="bg-white/20 backdrop-blur-sm hover:bg-white/30 border border-white/50 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all"
+              asChild
             >
-              <Download className="mr-3 h-5 w-5" />
-              Download Brochure
+              <a href="https://drive.google.com/file/d/1HkyUI7CPhYqbnQhYdDL61Q9QBxPoztz0/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Download Nilaya Brochure (PDF)">
+                <Download className="mr-3 h-5 w-5" />
+                Download Brochure
+              </a>
             </Button>
           </div>
         </div>
@@ -545,8 +548,10 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Download Brochure</h3>
                 <p className="text-gray-600 mb-4">Detailed brochure with layout plans and project information</p>
-                <Button className="bg-purple-500 text-white px-6 py-2 rounded-full hover:bg-purple-600 transition-colors">
-                  Get Brochure
+                <Button className="bg-purple-500 text-white px-6 py-2 rounded-full hover:bg-purple-600 transition-colors" asChild>
+                  <a href="https://drive.google.com/file/d/1HkyUI7CPhYqbnQhYdDL61Q9QBxPoztz0/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Download Nilaya Brochure (PDF)">
+                    Get Brochure
+                  </a>
                 </Button>
               </CardContent>
             </Card>
@@ -619,7 +624,7 @@ export default function HomePage() {
       <section className="relative py-32 flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-fixed"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&h=1080')" }}
+          style={{ backgroundImage: "url('https://yourimageshare.com/ib/B6SduFYZR6.jpg')" }}
         >
           <div className="absolute inset-0 bg-black/50"></div>
         </div>
