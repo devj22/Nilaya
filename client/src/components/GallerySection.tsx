@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { UploadCloud, Image as ImageIcon } from "lucide-react";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface GalleryImage {
   url: string;
@@ -97,7 +98,7 @@ const GallerySection: React.FC = () => {
             {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
           </form>
         )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8">
           {images.length === 0 ? (
             <div className="col-span-full text-center text-gray-400 flex flex-col items-center">
               <ImageIcon className="w-12 h-12 mb-2" />
@@ -105,13 +106,15 @@ const GallerySection: React.FC = () => {
             </div>
           ) : (
             images.map((img, idx) => (
-              <Card key={idx} className="overflow-hidden rounded-xl shadow-lg relative">
-                <img
-                  src={img.url}
-                  alt={`Gallery ${idx + 1}`}
-                  className="w-full h-96 object-cover"
-                  loading="lazy"
-                />
+              <Card key={idx} className="overflow-hidden rounded-2xl shadow-2xl relative">
+                <AspectRatio ratio={4/3}>
+                  <img
+                    src={img.url}
+                    alt={`Gallery ${idx + 1}`}
+                    className="rounded-2xl shadow-2xl w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </AspectRatio>
                 {isAdmin && (
                   <button
                     onClick={() => handleDelete(img.url)}

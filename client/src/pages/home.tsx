@@ -667,7 +667,7 @@ export default function HomePage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">WhatsApp</h3>
-                  <p className="text-gray-300">+91 98765 43210</p>
+                  <p className="text-gray-300">+91 98670 08432</p>
                 </div>
               </div>
               
@@ -830,7 +830,7 @@ export default function HomePage() {
       {/* WhatsApp Float Button */}
       <div className="fixed bottom-6 right-6 z-50">
         <a 
-          href="https://wa.me/919876543210" 
+          href="https://wa.me/919867008432" 
           target="_blank" 
           rel="noopener noreferrer"
           className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-110 flex items-center justify-center"
