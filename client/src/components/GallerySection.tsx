@@ -71,12 +71,6 @@ const GallerySection: React.FC = () => {
             ))
           )}
         </div>
-        
-        {/* Instructions for adding images */}
-        <div className="mt-12 text-center text-sm text-gray-500">
-          <p>💡 <strong>To add more images:</strong> Edit the <code>images</code> array in <code>client/src/components/GallerySection.tsx</code></p>
-          <p className="mt-2">Format: <code>{`{ id: number, url: "image-url", alt: "description" }`}</code></p>
-        </div>
       </div>
     </section>
   );
