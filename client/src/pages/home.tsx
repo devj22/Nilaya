@@ -243,14 +243,14 @@ export default function HomePage() {
       <section id="intro-video" className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Welcome to Nilaya – Watch Our Intro
+            HD Video Tour – Experience Nilaya
           </h2>
           <div className="w-24 h-1 bg-gradient-coastal mx-auto mb-8"></div>
           <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg shadow-lg">
             <iframe
               className="absolute top-0 left-0 w-full h-full"
-              src="https://www.youtube.com/embed/waP_CA2uIPU?si=lpR9cy88QK3w-2lH"
-              title="Nilaya Intro Video"
+              src="https://www.youtube.com/embed/waP_CA2uIPU"
+              title="Nilaya HD Video Tour"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
