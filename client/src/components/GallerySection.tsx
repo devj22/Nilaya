@@ -29,9 +29,40 @@ const GallerySection: React.FC = () => {
     },
     {
       id: 4,
-      url: "https://i.ibb.co/DP987gpQ/Living-room.jpg",
-      alt: "Modern beachfront development"
+      url: "https://i.ibb.co/1JYhtJTx/Evening-View-001-A.jpg",
+      alt: "Modern beachfront development221"
     },
+    {
+      id: 5,
+      url: "https://i.ibb.co/DP987gpQ/Living-room.jpg",
+      alt: "Modern beachfront development22"
+    },
+    {
+      id: 6,
+      url: "https://i.ibb.co/hJxgzk7P/Bedroom-001.jpg",
+      alt: "Modern beachfront development212"
+    },
+    {
+      id: 7,
+      url: "https://i.ibb.co/twbWcbYx/Dining-View-001.jpg",
+      alt: "Image"
+    },
+    {
+      id: 8,
+      url: "https://i.ibb.co/TDfqWhXW/Toilet-View.jpg",
+      alt: "Image2"
+    },
+    {
+      id: 9,
+      url: "https://i.ibb.co/CX8pQ52/F-floor-2-D.png",
+      alt: "Image3"
+    },
+    {
+      id: 10,
+      url: "https://i.ibb.co/0RLb6xVm/F-floor-ISO.png",
+      alt: "Image4"
+    },
+   
     // Add more images here by copying the format above
     // Example:
     // {
