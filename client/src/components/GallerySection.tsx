@@ -14,22 +14,22 @@ const GallerySection: React.FC = () => {
   const images: GalleryImage[] = [
     {
       id: 1,
-      url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-      alt: "Luxury coastal property development"
+      url: "https://i.ibb.co/PsMbLDRT/Bird-Eye-View-001.jpg",
+      alt: "Bird's eye view of the property"
     },
     {
       id: 2,
-      url: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-      alt: "Nagaon beach coastal area"
+      url: "https://i.ibb.co/vN9Dn56/Day-View-Inside-001-A.jpg",
+      alt: "Day view inside the property"
     },
     {
       id: 3,
-      url: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+      url: "https://i.ibb.co/ymGVnSD1/Gate-View-001.jpg",
       alt: "Coastal luxury property"
     },
     {
       id: 4,
-      url: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+      url: "https://i.ibb.co/DP987gpQ/Living-room.jpg",
       alt: "Modern beachfront development"
     },
     // Add more images here by copying the format above
