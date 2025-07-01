@@ -33,13 +33,15 @@ import {
   Calendar,
   ChevronDown,
   X,
-  TriangleAlert
+  TriangleAlert,
+  Menu as MenuIcon
 } from "lucide-react";
 import GallerySection from "@/components/GallerySection";
 
 export default function HomePage() {
   const [showAlert, setShowAlert] = useState(true);
   const { toast } = useToast();
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -132,6 +134,7 @@ export default function HomePage() {
               <h1 className="font-playfair text-2xl font-bold text-ocean">Nilaya</h1>
               <span className="ml-2 text-sm text-gray-600">Premium Coastal Plots</span>
             </div>
+            {/* Desktop nav */}
             <div className="hidden md:flex items-center space-x-8">
               <button onClick={() => scrollToSection('about')} className="text-gray-700 hover:text-ocean transition-colors">About</button>
               <button onClick={() => scrollToSection('features')} className="text-gray-700 hover:text-ocean transition-colors">Features</button>
@@ -143,8 +146,26 @@ export default function HomePage() {
                 Book Site Visit
               </Button>
             </div>
+            {/* Mobile nav button */}
+            <div className="md:hidden flex items-center">
+              <Button variant="outline" size="icon" onClick={() => setMobileNavOpen(!mobileNavOpen)} aria-label="Open navigation menu">
+                <MenuIcon className="h-6 w-6" />
+              </Button>
+            </div>
           </div>
         </div>
+        {/* Mobile nav menu */}
+        {mobileNavOpen && (
+          <div className="md:hidden fixed top-16 left-0 w-full bg-white shadow-lg z-50 animate-fade-in flex flex-col items-center py-4 space-y-4">
+            <button onClick={() => { setMobileNavOpen(false); scrollToSection('about'); }} className="text-gray-700 hover:text-ocean transition-colors w-full text-center">About</button>
+            <button onClick={() => { setMobileNavOpen(false); scrollToSection('features'); }} className="text-gray-700 hover:text-ocean transition-colors w-full text-center">Features</button>
+            <button onClick={() => { setMobileNavOpen(false); scrollToSection('investment'); }} className="text-gray-700 hover:text-ocean transition-colors w-full text-center">Investment</button>
+            <button onClick={() => { setMobileNavOpen(false); scrollToSection('contact'); }} className="text-gray-700 hover:text-ocean transition-colors w-full text-center">Contact</button>
+            <Button className="bg-gradient-coastal text-white w-full" onClick={() => { setMobileNavOpen(false); scrollToSection('contact'); }}>
+              Book Site Visit
+            </Button>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
