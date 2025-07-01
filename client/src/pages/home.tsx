@@ -113,7 +113,7 @@ export default function HomePage() {
         <div className="bg-red-600 text-white text-center py-2 px-4 fixed top-0 w-full z-50 shadow-lg">
           <div className="flex items-center justify-center space-x-2">
             <TriangleAlert className="h-4 w-4 text-yellow-300" />
-            <span className="font-medium">⚠️ Only a few plots left in Phase 1 – Book now before prices increase!</span>
+            <span className="font-medium">⚠️ Only a few plots left – Book now before prices increase!</span>
             <Button
               variant="ghost"
               size="sm"
@@ -806,7 +806,18 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <h3 className="font-playfair text-2xl font-bold mb-4">Nilaya</h3>
+              <h3 className="font-playfair text-2xl font-bold mb-4">
+                Nilaya{' '}
+                <a
+                  href="https://www.stheera.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: '1rem', color: '#EACB77', fontWeight: 500 }}
+                  className="align-middle ml-1"
+                >
+                  by Stheera
+                </a>
+              </h3>
               <p className="text-gray-400 mb-4">Premium NA plots in the heart of coastal luxury at Nagaon, Alibaug.</p>
               <div className="flex space-x-4">
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -836,7 +847,7 @@ export default function HomePage() {
               <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
               <div className="space-y-2 text-gray-400">
                 <p><MapPin className="inline h-4 w-4 mr-2" />Nagaon, Alibaug, Maharashtra</p>
-                <p><Phone className="inline h-4 w-4 mr-2" />+91 98765 43210</p>
+                <p><Phone className="inline h-4 w-4 mr-2" />+91 9867008432</p>
                 <p><Mail className="inline h-4 w-4 mr-2" />nilayaalibaug@gmail.com</p>
               </div>
             </div>
