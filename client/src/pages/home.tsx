@@ -358,7 +358,13 @@ export default function HomePage() {
                 className="rounded-2xl shadow-2xl w-full"
               />
               
-              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-lg">
+              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-lg cursor-pointer" 
+                onClick={() => window.open('https://www.google.com/maps?q=18.605028,72.912833', '_blank')}
+                title="View location on Google Maps"
+                role="button"
+                tabIndex={0}
+                onKeyPress={e => { if (e.key === 'Enter' || e.key === ' ') window.open('https://www.google.com/maps?q=18.605028,72.912833', '_blank'); }}
+              >
                 <div className="flex items-center text-sm">
                   <MapPin className="h-4 w-4 text-ocean mr-2" />
                   <span className="font-medium">View on Map</span>
@@ -527,58 +533,60 @@ export default function HomePage() {
       </section>
 
       {/* Digital Experience Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-900 mb-6">Digital Experience</h2>
-            <div className="w-24 h-1 bg-gradient-coastal mx-auto mb-8"></div>
-            <p className="text-xl text-gray-600">Experience Nilaya virtually from anywhere in the world</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="text-center p-8 bg-gradient-to-br from-blue-50 to-blue-100 hover:shadow-lg transition-shadow">
-              <CardContent className="p-0">
-                <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Video className="text-white h-10 w-10" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">HD Drone Shoot</h3>
-                <p className="text-gray-600 mb-4">Aerial footage showcasing the entire project and surrounding beauty</p>
-                <Button className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors">
-                  Watch Video
-                </Button>
-              </CardContent>
-            </Card>
-            
-            <Card className="text-center p-8 bg-gradient-to-br from-green-50 to-green-100 hover:shadow-lg transition-shadow">
-              <CardContent className="p-0">
-                <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Box className="text-white h-10 w-10" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Virtual Site Tour</h3>
-                <p className="text-gray-600 mb-4">360° virtual tour specially designed for outstation buyers</p>
-                <Button className="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition-colors">
-                  Take Tour
-                </Button>
-              </CardContent>
-            </Card>
-            
-            <Card className="text-center p-8 bg-gradient-to-br from-purple-50 to-purple-100 hover:shadow-lg transition-shadow">
-              <CardContent className="p-0">
-                <div className="w-20 h-20 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Download className="text-white h-10 w-10" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Download Brochure</h3>
-                <p className="text-gray-600 mb-4">Detailed brochure with layout plans and project information</p>
-                <Button className="bg-purple-500 text-white px-6 py-2 rounded-full hover:bg-purple-600 transition-colors" asChild>
-                  <a href="https://drive.google.com/file/d/1HkyUI7CPhYqbnQhYdDL61Q9QBxPoztz0/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Download Nilaya Brochure (PDF)">
-                    Get Brochure
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+   <section className="py-20 bg-white">
+  <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-900 mb-6">Digital Experience</h2>
+      <div className="w-24 h-1 bg-gradient-coastal mx-auto mb-8"></div>
+      <p className="text-xl text-gray-600">Experience Nilaya virtually from anywhere in the world</p>
+    </div>
+
+    <div className="flex justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <Card className="text-center p-8 bg-gradient-to-br from-blue-50 to-blue-100 hover:shadow-lg transition-shadow">
+          <CardContent className="p-0">
+            <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Video className="text-white h-10 w-10" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">HD Drone Shoot</h3>
+            <p className="text-gray-600 mb-4">Aerial footage showcasing the entire project and surrounding beauty</p>
+            <Button className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors" asChild>
+              <a
+                href="https://www.youtube.com/watch?v=waP_CA2uIPU&embeds_referring_euri=http%3A%2F%2Flocalhost%3A4000%2F&source_ve_path=OTY3MTQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Watch HD Drone Shoot"
+              >
+                Watch Video
+              </a>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="text-center p-8 bg-gradient-to-br from-purple-50 to-purple-100 hover:shadow-lg transition-shadow">
+          <CardContent className="p-0">
+            <div className="w-20 h-20 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Download className="text-white h-10 w-10" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">Download Brochure</h3>
+            <p className="text-gray-600 mb-4">Detailed brochure with layout plans and project information</p>
+            <Button className="bg-purple-500 text-white px-6 py-2 rounded-full hover:bg-purple-600 transition-colors" asChild>
+              <a
+                href="https://drive.google.com/file/d/1HkyUI7CPhYqbnQhYdDL61Q9QBxPoztz0/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Download Nilaya Brochure (PDF)"
+              >
+                Get Brochure
+              </a>
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* Legal Assurance Section */}
       <section className="py-20 bg-gradient-to-br from-green-50 to-emerald-50">
@@ -678,7 +686,7 @@ export default function HomePage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">Call Us</h3>
-                  <p className="text-gray-300">+91 98765 43210</p>
+                  <p className="text-gray-300">+91 9867008432</p>
                 </div>
               </div>
               
@@ -705,9 +713,10 @@ export default function HomePage() {
               {/* Google Maps Embed */}
               <div className="mt-8">
                 <h3 className="text-lg font-semibold mb-4">Location</h3>
+                <div className="mb-2 text-gray-300 text-sm">18°36'18.1"N 72°54'46.2"E</div>
                 <div className="bg-gray-800 p-4 rounded-lg">
                   <iframe 
-                    src="https://www.google.com/maps?q=18.6143,72.9030&z=15&output=embed" 
+                    src="https://maps.google.com/maps?q=18.605028,72.912833&z=15&output=embed" 
                     width="100%" 
                     height="200" 
                     style={{ border: 0, borderRadius: '8px' }} 
@@ -867,7 +876,7 @@ export default function HomePage() {
           rel="noopener noreferrer"
           className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-110 flex items-center justify-center"
         >
-          <MessageCircle className="h-6 w-6" />
+          <img src="https://i.pinimg.com/736x/bf/8a/76/bf8a76719f900b8757154eb3cfbc844a.jpg" alt="WhatsApp" className="h-10 w-10 object-contain" />
         </a>
       </div>
     </div>
