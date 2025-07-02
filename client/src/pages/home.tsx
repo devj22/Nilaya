@@ -131,8 +131,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="font-playfair text-2xl font-bold text-ocean">Nilaya</h1>
-              <span className="ml-2 text-sm text-gray-600">Premium Coastal Plots</span>
+              <img src="https://i.ibb.co/PzzrbRX9/nilayalogo-removebg-preview.png" alt="Nilaya Logo" className="h-20 w-auto" />
             </div>
             {/* Desktop nav */}
             <div className="hidden md:flex items-center space-x-8">
@@ -533,23 +532,23 @@ export default function HomePage() {
       </section>
 
       {/* Digital Experience Section */}
-   <section className="py-20 bg-white">
-  <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-16">
-      <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-900 mb-6">Digital Experience</h2>
-      <div className="w-24 h-1 bg-gradient-coastal mx-auto mb-8"></div>
-      <p className="text-xl text-gray-600">Experience Nilaya virtually from anywhere in the world</p>
-    </div>
-
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-900 mb-6">Digital Experience</h2>
+            <div className="w-24 h-1 bg-gradient-coastal mx-auto mb-8"></div>
+            <p className="text-xl text-gray-600">Experience Nilaya virtually from anywhere in the world</p>
+          </div>
+          
     <div className="flex justify-center">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <Card className="text-center p-8 bg-gradient-to-br from-blue-50 to-blue-100 hover:shadow-lg transition-shadow">
-          <CardContent className="p-0">
-            <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Video className="text-white h-10 w-10" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">HD Drone Shoot</h3>
-            <p className="text-gray-600 mb-4">Aerial footage showcasing the entire project and surrounding beauty</p>
+            <Card className="text-center p-8 bg-gradient-to-br from-blue-50 to-blue-100 hover:shadow-lg transition-shadow">
+              <CardContent className="p-0">
+                <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Video className="text-white h-10 w-10" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">HD Drone Shoot</h3>
+                <p className="text-gray-600 mb-4">Aerial footage showcasing the entire project and surrounding beauty</p>
             <Button className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors" asChild>
               <a
                 href="https://www.youtube.com/watch?v=waP_CA2uIPU&embeds_referring_euri=http%3A%2F%2Flocalhost%3A4000%2F&source_ve_path=OTY3MTQ"
@@ -557,35 +556,35 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 aria-label="Watch HD Drone Shoot"
               >
-                Watch Video
+                  Watch Video
               </a>
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card className="text-center p-8 bg-gradient-to-br from-purple-50 to-purple-100 hover:shadow-lg transition-shadow">
-          <CardContent className="p-0">
-            <div className="w-20 h-20 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Download className="text-white h-10 w-10" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">Download Brochure</h3>
-            <p className="text-gray-600 mb-4">Detailed brochure with layout plans and project information</p>
-            <Button className="bg-purple-500 text-white px-6 py-2 rounded-full hover:bg-purple-600 transition-colors" asChild>
+                </Button>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center p-8 bg-gradient-to-br from-purple-50 to-purple-100 hover:shadow-lg transition-shadow">
+              <CardContent className="p-0">
+                <div className="w-20 h-20 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Download className="text-white h-10 w-10" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Download Brochure</h3>
+                <p className="text-gray-600 mb-4">Detailed brochure with layout plans and project information</p>
+                <Button className="bg-purple-500 text-white px-6 py-2 rounded-full hover:bg-purple-600 transition-colors" asChild>
               <a
                 href="https://drive.google.com/file/d/1HkyUI7CPhYqbnQhYdDL61Q9QBxPoztz0/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Download Nilaya Brochure (PDF)"
               >
-                Get Brochure
-              </a>
-            </Button>
-          </CardContent>
-        </Card>
+                    Get Brochure
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
       </div>
-    </div>
-  </div>
-</section>
+          </div>
+        </div>
+      </section>
 
 
       {/* Legal Assurance Section */}
