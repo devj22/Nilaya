@@ -874,9 +874,13 @@ export default function HomePage() {
           href="https://wa.me/919867008432" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-110 flex items-center justify-center"
+          className="w-12 h-12 flex items-center justify-center bg-[#1BD742] hover:bg-[#17c439] rounded-full shadow-lg"
         >
-          <img src="https://i.pinimg.com/736x/bf/8a/76/bf8a76719f900b8757154eb3cfbc844a.jpg" alt="WhatsApp" className="h-10 w-10 object-contain" />
+          <img
+            src="https://i.pinimg.com/736x/bf/8a/76/bf8a76719f900b8757154eb3cfbc844a.jpg"
+            alt="WhatsApp Logo"
+            className="w-8 h-8 object-contain"
+          />
         </a>
       </div>
     </div>
