@@ -411,7 +411,7 @@ export default function HomePage() {
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Home className="text-purple-600 h-8 w-8" />
                 </div>
-                <h3 className="text-2xl font-bold text-purple-600 mb-2">5-8%</h3>
+                <h3 className="text-2xl font-bold text-purple-600 mb-2">10-12%</h3>
                 <p className="text-gray-700 font-semibold mb-2">Airbnb Rental</p>
                 <p className="text-sm text-gray-600">Yields</p>
               </CardContent>
