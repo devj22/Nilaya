@@ -7,12 +7,19 @@ async function throwIfResNotOk(res: Response) {
   }
 }
 
+const API_BASE_URL = "https://nilaya.onrender.com";
+
+function withBaseUrl(url: string) {
+  if (/^https?:\/\//.test(url)) return url;
+  return API_BASE_URL + url;
+}
+
 export async function apiRequest(
   method: string,
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  const res = await fetch(url, {
+  const res = await fetch(withBaseUrl(url), {
     method,
     headers: data ? { "Content-Type": "application/json" } : {},
     body: data ? JSON.stringify(data) : undefined,
@@ -35,7 +42,7 @@ export const getQueryFn: <T>(options: {
       headers.Authorization = `Bearer ${token}`;
     }
     
-    const res = await fetch(queryKey[0] as string, {
+    const res = await fetch(withBaseUrl(queryKey[0] as string), {
       credentials: "include",
       headers,
     });
